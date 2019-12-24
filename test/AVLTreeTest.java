@@ -1,6 +1,5 @@
 import static org.junit.Assert.*;
 
-
 import org.junit.*;
 
 import java.util.Random;
@@ -77,5 +76,19 @@ public class AVLTreeTest {
         assertTrue(subSet.contains(150));
         subSet.add(160);
         assertTrue(set.contains(160));
+    }
+
+    @Test
+    public void testSubSets2() {
+        AVLTree<Integer> set = new AVLTree<>();
+        for (int i = 0; i < 20; i++) {
+            set.add(i);
+        }
+        SortedSet<Integer> sub1 = set.headSet(10);
+        SortedSet<Integer> sub2 = sub1.tailSet(5);
+        SortedSet<Integer> sub3 = set.headSet(10).tailSet(5);
+        assertEquals(10, sub1.size());
+        assertEquals(5, sub2.size());
+        assertEquals(5, sub3.size());
     }
 }

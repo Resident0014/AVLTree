@@ -166,11 +166,25 @@ public class AVLTree<T extends Comparable<T>> implements SortedSet<T> {
         }
 
         void addSimple(T t) {
-            super.add(t);
+            if (isCorrectValue(t)) {
+                super.add(t);
+            }
         }
 
         void removeSimple(Object o) {
-            super.remove(o);
+            if (isCorrectValue((T) o)) {
+                super.remove(o);
+            }
+        }
+
+        @Override
+        public SortedSet<T> headSet(T toElement) {
+            return subSet(min, toElement);
+        }
+
+        @Override
+        public SortedSet<T> tailSet(T fromElement) {
+            return subSet(fromElement, max);
         }
     }
 
@@ -324,16 +338,12 @@ public class AVLTree<T extends Comparable<T>> implements SortedSet<T> {
 
     @Override
     public SortedSet<T> headSet(T toElement) {
-        SubTree<T> s = new SubTree<>(null, toElement, parentTree());
-        parentTree().subTrees.add(s);
-        return s;
+        return subSet(null, toElement);
     }
 
     @Override
     public SortedSet<T> tailSet(T fromElement) {
-        SubTree<T> s = new SubTree<>(fromElement, null, parentTree());
-        parentTree().subTrees.add(s);
-        return s;
+        return subSet(fromElement, null);
     }
 
     @Override
@@ -428,5 +438,8 @@ public class AVLTree<T extends Comparable<T>> implements SortedSet<T> {
     public void clear() {
         root = null;
         size = 0;
+        if (subTrees != null) {
+            subTrees.clear();
+        }
     }
 }
