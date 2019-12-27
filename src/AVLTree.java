@@ -186,6 +186,23 @@ public class AVLTree<T extends Comparable<T>> implements SortedSet<T> {
         public SortedSet<T> tailSet(T fromElement) {
             return subSet(fromElement, max);
         }
+
+        @Override
+        public SortedSet<T> subSet(T fromElement, T toElement) {
+            if (fromElement == null) {
+                fromElement = min;
+            }
+            else if (min != null && fromElement.compareTo(min) < 0) {
+                throw new IllegalArgumentException("from key error");
+            }
+            if (toElement == null) {
+                toElement = max;
+            }
+            else if (max != null && toElement.compareTo(max) >= 0) {
+                throw new IllegalArgumentException("to key error");
+            }
+            return super.subSet(fromElement, toElement);
+        }
     }
 
     Node<T> root = null;
