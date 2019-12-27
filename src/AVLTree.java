@@ -178,16 +178,6 @@ public class AVLTree<T extends Comparable<T>> implements SortedSet<T> {
         }
 
         @Override
-        public SortedSet<T> headSet(T toElement) {
-            return subSet(min, toElement);
-        }
-
-        @Override
-        public SortedSet<T> tailSet(T fromElement) {
-            return subSet(fromElement, max);
-        }
-
-        @Override
         public SortedSet<T> subSet(T fromElement, T toElement) {
             if (fromElement == null) {
                 fromElement = min;
